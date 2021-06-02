@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
-import { addContact } from '../../Redux/Actions/Action';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useParams } from 'react-router';
+import { editContact, updateContact } from '../../Redux/Actions/Action';
 
-const AddContact = () => {
+const EditContact = () => {
 
-    const shortid = require('shortid');
+    let { id } = useParams();
+    // const shortid = require('shortid');
 
     let history = useHistory();
     const dispatch = useDispatch();
@@ -13,25 +15,50 @@ const AddContact = () => {
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
 
-    const creteContact = (e) => {
+    // const creteContact = (e) => {
+    //     e.preventDefault();
+    //     const new_contact = {
+    //         id: shortid.generate(),
+    //         name: name,
+    //         phone: phone,
+    //         email: email,
+    //     };
+    //     dispatch(addContact(new_contact));
+    //     history.push("/");
+    // };
+    const contacts = useSelector((state) =>state.contact.editContact)
+    console.log(contacts);
+
+    useEffect(()=>{
+        if(contacts != null){
+            setName(contacts.name)
+            setEmail(contacts.email)
+            setPhone(contacts.phone)
+        }
+        dispatch(editContact(id))
+    }, [contacts]);
+
+    const onUpdateContact = (e) => {
         e.preventDefault();
-        const new_contact = {
-            id: shortid.generate(),
-            name: name,
-            phone: phone,
-            email: email,
-        };
-        dispatch(addContact(new_contact));
-        history.push("/");
-    };
+    
+        const update_contact = Object.assign(contacts, {
+          name: name,
+          phone: phone,
+          email: email,
+        });
+        console.log(update_contact)
+    
+        dispatch(updateContact(update_contact));
+        history.push("/")
+      };
 
 
 
     return (
         <div className="card border-0 shadow">
-            <div className="card-header">Add a Contact</div>
+            <div className="card-header">Edit Contact</div>
             <div className="card-body">
-                <form onSubmit={(e) => creteContact(e)}>
+                <form onSubmit={(e) => onUpdateContact(e)}>
                     <div className="form-group">
                         <input
                             type="text"
@@ -60,7 +87,7 @@ const AddContact = () => {
                         />
                     </div>
                     <button className="btn btn-primary" type="submit">
-                        Create Contact
+                        Update Contact
                     </button>
                 </form>
             </div>
@@ -68,4 +95,4 @@ const AddContact = () => {
     );
 };
 
-export default AddContact;
+export default EditContact;

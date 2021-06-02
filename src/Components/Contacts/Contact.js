@@ -1,16 +1,19 @@
 import React from 'react';
 import Avatar from 'react-avatar';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { deleteContact } from '../../Redux/Actions/Action';
 
 const Contact = () => {
 
     const contacts = useSelector((state) => {
-        return state.contactList
+        return state.contact.contactList
     })
+    const dispatch = useDispatch()
 
     return (
         <div>
-            <table class="table table-dark table-striped">
+            <table className="table table-dark table-striped">
                 <thead>
                     <tr>
                         <th className="custom-control custom-checkbox">
@@ -26,7 +29,7 @@ const Contact = () => {
                 <tbody>
                     {
                         contacts.map((contact) => (
-                            <tr>
+                            <tr key={contact.id}>
                                 <td className="custom-control custom-checkbox">
                                     <input type="checkbox" className="custom-control-input" />
                                     <label className="custom-control-label"></label>
@@ -35,18 +38,14 @@ const Contact = () => {
                                 <td>{contact.phone}</td>
                                 <td>{contact.email}</td>
                                 <td className="actions">
-                                    {/* <Link to={`/contacts/edit/${id}`}>
+                                    <Link to={`/editContact/${contact.id}`}>
                                         <span className="material-icons mr-2">edit</span>
-                                    </Link> */}
-                                    <a>
-                                        <span className="material-icons mr-2">edit</span>
-                                    </a>
-                                    {/* <span className="material-icons  text-danger" onClick={() => dispatch(deleteContact(id))}>
-                                        remove_circle
-                                    </span> */}
-                                    <span className="material-icons  text-danger">
-                                        remove_circle
-                                    </span>
+                                    </Link>
+                                    <Link onClick={() => dispatch(deleteContact(`${contact.id}`))}>
+                                        <span className="material-icons  text-danger" >
+                                            remove_circle
+                                         </span>
+                                    </Link>
                                 </td>
                             </tr>
                         ))
