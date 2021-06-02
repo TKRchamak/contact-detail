@@ -5,15 +5,13 @@ const Navbar = () => {
     return (
         <nav className="navbar shadow fixed-top navbar-expand-sm navbar-dark bg-primary">
             <div className="container">
-                <a href="#" className="navbar-brand">Contact Book</a>
-                {/* <Link to="/" className="navbar-brand">
+                <Link to="/" className="navbar-brand">
                     Contact Book
-                </Link> */}
+                </Link>
                 <div>
-                    <a href="#" className="btn btn-light ml-auto">Create Contact</a>
-                    {/* <Link to="/contacts/add" className="btn btn-light ml-auto">
+                    <Link to="/addContact" className="btn btn-light ml-auto">
                         Create Contact
-                    </Link> */}
+                    </Link>
                 </div>
             </div>
         </nav>

@@ -1,19 +1,31 @@
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 import './App.css';
+import AddContact from './Components/AddContact/AddContact';
 import Contact from './Components/Contacts/Contact';
 import Navbar from './Components/Navbar/Navbar';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <Navbar></Navbar>
-      </header>
-      <div className="container">
-        <div className="py-3">
-          <Contact></Contact>
+    <Router>
+      <div className="App">
+        <header className="App-header">
+          <Navbar></Navbar>
+        </header>
+        <div className="container">
+          <div className="py-3">
+            <Switch>
+              <Route exact path="/"><Contact></Contact></Route>
+              <Route path="/addContact"><AddContact></AddContact></Route>
+            </Switch>
+          </div>
         </div>
       </div>
-    </div>
+    </Router>
   );
 }
 
