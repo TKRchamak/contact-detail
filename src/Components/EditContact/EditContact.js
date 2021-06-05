@@ -15,17 +15,7 @@ const EditContact = () => {
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
 
-    // const creteContact = (e) => {
-    //     e.preventDefault();
-    //     const new_contact = {
-    //         id: shortid.generate(),
-    //         name: name,
-    //         phone: phone,
-    //         email: email,
-    //     };
-    //     dispatch(addContact(new_contact));
-    //     history.push("/");
-    // };
+   
     const contacts = useSelector((state) =>state.contact.editContact)
     console.log(contacts);
 
